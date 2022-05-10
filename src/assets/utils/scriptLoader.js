@@ -22,7 +22,7 @@ class ScriptLoader {
         ||
         script.readyState === "loaded" || script.readyState === 'complete' 
       ) {
-        console.log("INFO:load:" + url);
+        // console.log("INFO:load:" + url);
         script.ready = true;
         callback();
       }
@@ -36,7 +36,7 @@ class ScriptLoader {
     let loadScript = function (url) {
       ScriptLoader.loadScript(url, function () {
         ok++;
-        console.log("init:" + url)
+        // console.log("init:" + url)
         if (ok === scripts.length) {
           callback();
         } else {
