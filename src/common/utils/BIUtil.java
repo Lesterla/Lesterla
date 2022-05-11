@@ -66,6 +66,34 @@ public class BIUtil {
   public static BigInteger toBI(byte[] data) {
     return new BigInteger(1, data);
   }
+/**
+   * @param data = not null
+   * @return new positive BigInteger
+   */
+  public static BigInteger toBI(long data) {
+    return BigInteger.valueOf(data);
+  }
 
+
+  public static boolean isPositive(BigInteger value) {
+    return value.signum() > 0;
+  }
+
+  public static boolean isNotCovers(BigInteger covers, BigInteger value) {
+    return covers.compareTo(value) < 0;
+  }
+
+  public static BigInteger max(BigInteger first, BigInteger second) {
+    return first.compareTo(second) < 0 ? second : first;
+  }
+
+  /**
+   * Returns a result of safe addition of two {@code int} values {@code Integer.MAX_VALUE} is
+   * returned if overflow occurs
+   */
+  public static int addSafely(int a, int b) {
+    long res = (long) a + (long) b;
+    return res > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) res;
+  }
   
 }
