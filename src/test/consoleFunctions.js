@@ -54,7 +54,7 @@ describe('console functions', () => {
         }
 
         // browser-only test
-        if (typeof window == 'undefined') {
+        if (typeof window !== 'undefined') {
             it(name + ' without console.' + name, (done) => {
                 var _console = window.console;
                 window.console = undefined;
