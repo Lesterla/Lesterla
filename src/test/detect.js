@@ -216,4 +216,14 @@ describe("detect", () => {
             done();
         });
     });
+    
+    it('find alias', () => {
+        expect(async.find).to.equal(async.detect);
+    });
+
+    it('findLimit alias', () => {
+        expect(async.findLimit).to.equal(async.detectLimit);
+    });
+
+    
 });
