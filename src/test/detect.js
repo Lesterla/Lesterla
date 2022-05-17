@@ -224,6 +224,10 @@ describe("detect", () => {
     it('findLimit alias', () => {
         expect(async.findLimit).to.equal(async.detectLimit);
     });
-
+    
+    it('findSeries alias', () => {
+        expect(async.findSeries).to.be.a('function');
+        expect(async.findSeries).to.equal(async.detectSeries);
+    });
     
 });
