@@ -159,4 +159,61 @@ describe("detect", () => {
             done();
         }, 50);
     });
+    
+     it('detectLimit - ensure stop', (done) => {
+        async.detectLimit([1, 2, 3, 4, 5], 2, (num, cb) => {
+            if (num > 4) throw new Error("detectLimit did not stop iterating");
+            cb(null, num === 3);
+        }, (err, result) => {
+            expect(err).to.equal(null);
+            expect(result).to.equal(3);
+            done();
+        });
+    });
+
+    it('detectLimit canceled', (done) => {
+        var call_order = [];
+        async.detectLimit([3, 3, 2, 2, 1], 2, (x, callback) => {
+            async.setImmediate(() => {
+                call_order.push(x);
+                if (x === 2) {
+                    return callback(false);
+                }
+                callback(null);
+            });
+        }, () => {
+            throw new Error('should not get here');
+        });
+
+        setTimeout(() => {
+            expect(call_order).to.eql([3, 3, 2, 2]);
+            done();
+        }, 50);
+    });
+
+    it('detectSeries doesn\'t cause stack overflow (#1293)', (done) => {
+        var arr = _.range(10000);
+        let calls = 0;
+        async.detectSeries(arr, (data, cb) => {
+            calls += 1;
+            async.setImmediate(_.partial(cb, null, true));
+        }, (err) => {
+            expect(err).to.equal(null);
+            expect(calls).to.equal(1);
+            done();
+        });
+    });
+
+    it('detectLimit doesn\'t cause stack overflow (#1293)', (done) => {
+        var arr = _.range(10000);
+        let calls = 0;
+        async.detectLimit(arr, 100, (data, cb) => {
+            calls += 1;
+            async.setImmediate(_.partial(cb, null, true));
+        }, (err) => {
+            expect(err).to.equal(null);
+            expect(calls).to.equal(100);
+            done();
+        });
+    });
 });
