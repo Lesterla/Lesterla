@@ -57,5 +57,28 @@ describe('ensureAsync', () => {
         });
         sync = false;
     });
+    
+    it('should propely bind context to the wrapped function', (done) => {
 
+        // call bind after wrapping with ensureAsync
+        var context = {context: "post"};
+        var postBind = async.ensureAsync(passContext);
+        postBind = postBind.bind(context);
+        postBind((ref) => {
+            expect(ref).to.equal(context);
+            done();
+        });
+    });
+
+    it('should not override the bound context of a function when wrapping', (done) => {
+
+        // call bind before wrapping with ensureAsync
+        var context = {context: "pre"};
+        var preBind = passContext.bind(context);
+        preBind = async.ensureAsync(preBind);
+        preBind((ref) => {
+            expect(ref).to.equal(context);
+            done();
+        });
+    });
 });
