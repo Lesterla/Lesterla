@@ -114,16 +114,16 @@ describe("each", () => {
         });
     });
 
-    it('eachSeries empty array', (done) => {
-        async.eachSeries([], (x, callback) => {
-            assert(false, 'iteratee should not be called');
-            callback();
-        }, (err) => {
-            if (err) throw err;
-            assert(true, 'should call callback');
-        });
-        setTimeout(done, 25);
-    });
+//     it('eachSeries empty array', (done) => {
+//         async.eachSeries([], (x, callback) => {
+//             assert(false, 'iteratee should not be called');
+//             callback();
+//         }, (err) => {
+//             if (err) throw err;
+//             assert(true, 'should call callback');
+//         });
+//         setTimeout(done, 25);
+//     });
 
     it('eachSeries array modification', (done) => {
         var arr = [1, 2, 3, 4];
