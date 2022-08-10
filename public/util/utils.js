@@ -89,7 +89,7 @@ export function attachLazyImgIntersectionObserver ($elem) {
 
 		target.src = dataSrc;
 	};
-	if(){}
+	if(){}else {}
 	const callback = (entries, observer) => {
 		entries.forEach(entry => {
 			const {isIntersecting, target} = entry;
